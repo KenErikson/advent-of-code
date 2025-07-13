@@ -30,10 +30,6 @@ func main() {
 	stringData := string(data)
 	stringDataRows := strings.Split(stringData, "\n")
 
-	rows := len(stringDataRows)
-
-	fmt.Println("Read ", filename, " with ", rows, " rows. First row:\n", stringDataRows[0])
-
 	// ### Day 2 ###
 	fmt.Println("\n### Day 2 ###\n ")
 
@@ -48,52 +44,69 @@ func main() {
 			intValue, _ := strconv.Atoi(splitVal[i])
 			row = append(row, intValue)
 		}
+
+		fmt.Printf("row: %v\n", row)
+		ascending := true
+
+		diff := 0
+		for i := range len(row) - 1 {
+			diff = diff + row[i] - row[i+1]
+		}
+		if diff < 0 {
+			ascending = false
+		}
+		if ascending {
+			slices.Reverse(row)
+		}
 		listOfRows = append(listOfRows, row)
+		// fmt.Printf("rowCopy: %v\n", rowCopy)
+		fmt.Printf("listOfRows: %v\n", listOfRows)
 	}
 
 	// Solve
 
 	result := 0
 
+	// skipNext := false
+
 	for i := range len(listOfRows) {
-		ascending := true
-		if listOfRows[i][0] < listOfRows[i][1] {
-			ascending = false
-		}
 		row := listOfRows[i]
-		if ascending {
-			slices.Reverse(row)
-		}
+
 		fmt.Printf("row: %v\n", row)
 
-		breakin := false
-		lastVal := -1
-		for j := range len(listOfRows[i]) {
-			currentVal := listOfRows[i][j]
-			if lastVal < 0 {
-				lastVal = currentVal
-				continue
-			}
+		currentVal := row[0]
+		fault := false
+		firstFault := true
+		for j := range len(row) - 1 {
+			nextVal := row[j+1]
 
-			diff := currentVal - lastVal
+			diff := nextVal - currentVal
 
 			if diff > 3 || diff < 1 {
-				breakin = true
-				break
+				if firstFault {
+					firstFault = false
+					continue
+				} else {
+					fault = true
+					break
+				}
 			}
 
-			lastVal = currentVal
+			currentVal = nextVal
 		}
 
-		if breakin {
-			println("UNSAFE")
-		} else {
-			println("SAFE")
+		if !fault {
 			result += 1
+			println("success")
 		}
 	}
 
+	println(len(listOfRows))
 	println("RESULT: ", result)
 
 	println("Expected Example result: 4")
 }
+
+// too high 458 and 401 too low
+// 459 too high
+// 401 too low, again

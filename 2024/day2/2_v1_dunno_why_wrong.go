@@ -48,27 +48,30 @@ func main() {
 			intValue, _ := strconv.Atoi(splitVal[i])
 			row = append(row, intValue)
 		}
-		listOfRows = append(listOfRows, row)
 		rowCopy := make([]int, len(row))
 		copy(rowCopy, row)
 		slices.Reverse(rowCopy)
 
 		listOfRows = append(listOfRows, row)
 		listOfRows = append(listOfRows, rowCopy)
+		// fmt.Printf("row: %v\n", row)
+		// fmt.Printf("rowCopy: %v\n", rowCopy)
+		// fmt.Printf("listOfRows: %v\n", len(listOfRows))
 	}
 
 	// Solve
 
 	result := 0
 
-	lastSuccess := false
+	// skipNext := false
 	for i := range len(listOfRows) {
-		if i%2 == 0 && lastSuccess {
-			continue
-		}
 		row := listOfRows[i]
-
-		fmt.Printf("row: %v\n", row)
+		// if skipNext {
+		// 	skipNext = false
+		// 	fmt.Printf("row: %v\n", row)
+		// 	println("skipped")
+		// 	continue
+		// }
 
 		breakin := false
 		firstFault := true
@@ -96,18 +99,23 @@ func main() {
 		}
 
 		if breakin {
-			println("UNSAFE ")
-			lastSuccess = false
+			fmt.Printf("row: %v\n", row)
+			// println("UNSAFE ")
 		} else {
-			println("SAFE ")
-			lastSuccess = true
+			// println("SAFE ")
 			result += 1
+			// if i%2 == 0 {
+			// 	skipNext = true
+			// }
 		}
 	}
 
+	println(len(listOfRows))
 	println("RESULT: ", result)
 
 	println("Expected Example result: 4")
 }
 
 // too high 458 and 401 too low
+// 459 too high
+// 401 too low, again
