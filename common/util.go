@@ -42,7 +42,7 @@ func ParseInputFile( args []string )(stringData string, stringDataRows []string,
 		panic(err)
 	}
 
-	stringData = string(data)
+	stringData = strings.TrimSpace(string(data))
 	stringDataRows = strings.Split(stringData, "\n")
 	rows = len(stringDataRows)
 
