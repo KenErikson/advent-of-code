@@ -1,5 +1,7 @@
 package common
 
+import "os"
+
 func End(msg string, errs ...error){
 	println("")
 	println("Exiting with message: " + msg)
@@ -12,5 +14,5 @@ func End(msg string, errs ...error){
 	}
 	println("")
 	println("Exiting")
-	panic( "Exiting" )
+	os.Exit(1)
 }
