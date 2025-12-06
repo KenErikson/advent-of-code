@@ -4,7 +4,8 @@ import (
 	"os"
 	"strings"
 	"time"
-	"aoc.erikson.fi/common"
+	"strconv"
+	. "aoc.erikson.fi/common"
 )
 
 func main() {
@@ -39,15 +40,32 @@ func getCurrentAocYear() int{
 	return year
 }
 
-func parseArgs(args []string) (runMode common.RunMode, year int, day int, part int, inputMode common.InputMode){
-	runMode = common.NormalRunMode
+func parseArgs(args []string) (runMode RunMode, year int, day int, part int, inputMode InputMode){
+	runMode = NormalRunMode
 	if args[0] == "init" {
-		runMode = common.InitRunMode
+		runMode = InitRunMode
 		args = args[1:]
+		if len(args) == 0 {
+			End("Init run mode expected to have at least one variable")
+		}
 	}
 
-	value, err := strconv.Atoi(inputString)
+	value, err := strconv.Atoi(args[0])
 	if err != nil {
-		println( )
+		End("Expected next arg int but was: " + strings.Join(args, ", "), err)
+		os.Exit(1)
 	}
+
+	year = getCurrentAocYear()
+	if value > 2000 {
+		year = value
+	} else if (value >= 1 && value <= 31){
+		day = value
+	}else{
+		End("Expected a year or day number, got: " + strconv.Itoa(value))
+	}
+
+	args = args[1:]
+
+	return runMode, year, day, part, inputMode
 }
