@@ -1,0 +1,17 @@
+package day$DAY$
+
+import (
+	"strings"
+)
+
+func Part1(input string) any {
+	lines := strings.Split(input, "\n")
+
+	return len(lines)
+}
+
+func Part2(input string) any {
+	// replace with Part1 when Part 1 complete
+
+	return 0
+}

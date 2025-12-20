@@ -1,0 +1,84 @@
+package dayday04
+
+import (
+	"os"
+	"testing"
+)
+
+func TestPart1(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected int
+		isFile   bool
+	}{
+		{
+			name:     "Example",
+			input:    "input_example.txt",
+			expected: 13,
+			isFile:   true,
+		},
+		{
+			name:     "Full",
+			input:    "input_full.txt",
+			expected: 123,
+			isFile:   true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			input := tt.input
+			if tt.isFile {
+				b, _ := os.ReadFile(input)
+				input = string(b)
+			}
+
+			ans := Part1(input)
+			t.Logf("Output: %v", ans)
+
+			if tt.expected != -1 && ans != tt.expected {
+				t.Errorf("got %v, want %v", ans, tt.expected)
+			}
+		})
+	}
+}
+
+func TestPart2(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected int
+		isFile   bool
+	}{
+		{
+			name:     "Example",
+			input:    "input_example.txt",
+			expected: 45,
+			isFile:   true,
+		},
+		{
+			name:     "Full",
+			input:    "input_full.txt",
+			expected: -1,
+			isFile:   true,
+		},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			input := tt.input
+			if tt.isFile {
+				b, _ := os.ReadFile(input)
+				input = string(b)
+			}
+
+			ans := Part1(input)
+			t.Logf("Output: %v", ans)
+
+			if tt.expected != -1 && ans != tt.expected {
+				t.Errorf("got %v, want %v", ans, tt.expected)
+			}
+		})
+	}
+}
