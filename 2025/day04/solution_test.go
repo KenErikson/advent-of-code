@@ -54,7 +54,7 @@ func TestPart2(t *testing.T) {
 		{
 			name:     "Example",
 			input:    "input_example.txt",
-			expected: 45,
+			expected: 43,
 			isFile:   true,
 		},
 		{
@@ -73,7 +73,7 @@ func TestPart2(t *testing.T) {
 				input = string(b)
 			}
 
-			ans := Part1(input)
+			ans := Part2(input)
 			t.Logf("Output: %v", ans)
 
 			if tt.expected != -1 && ans != tt.expected {
