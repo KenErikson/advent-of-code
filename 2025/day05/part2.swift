@@ -60,4 +60,6 @@ for range in reelRanges {
     print("New count: ", count)
 }
 
+var test = "testin"
+
 print(count)
